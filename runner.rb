@@ -1,5 +1,5 @@
 require './spec/spec_helper.rb'
-
+SimpleCov.start
 Games.generate_games
 
 puts Games.all_games[0].inspect
