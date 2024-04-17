@@ -28,8 +28,8 @@ class Games
         @@all_games
     end
 
-    def self.generate_games(game_path)
-        CSV.foreach(game_path, headers: true, header_converters: :symbol ) do |row|
+    def self.generate_games
+        CSV.foreach("./data/games.csv", headers: true, header_converters: :symbol ) do |row|
             Games.new(row)
         end
     end
