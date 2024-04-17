@@ -28,8 +28,8 @@ class GameTeams
         @@game_box_score
     end
 
-    def self.generate_box_scores
-        CSV.foreach("./data/game_teams.csv", headers: true, header_converters: :symbol) do |row|
+    def self.generate_box_scores(game_teams_path)
+        CSV.foreach(game_teams_path, headers: true, header_converters: :symbol) do |row|
             GameTeams.new(row)
         end
     end
