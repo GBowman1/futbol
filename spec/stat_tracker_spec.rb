@@ -19,4 +19,10 @@ RSpec.describe StatTracker do
         expect(@stat_tracker).to be_an_instance_of StatTracker
         end
     end
+
+    describe "highest_total_score" do
+        it "returns the highest total  of all games played" do
+            expect(@stat_tracker.highest_total_score).to eq(11)
+        end
+    end
 end
