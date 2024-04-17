@@ -20,8 +20,8 @@ class Teams
         @@all_teams
     end
 
-    def self.generate_teams
-        CSV.foreach('./data/teams.csv', headers: true) do |row|
+    def self.generate_teams(team_path)
+        CSV.foreach(team_path, headers: true) do |row|
             Teams.new(row)
         end
     end

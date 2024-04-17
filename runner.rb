@@ -1,6 +1,6 @@
 require './spec/spec_helper.rb'
 SimpleCov.start
-Games.generate_games
+Games.generate_games("./data/games.csv")
 
 puts Games.all_games[0].inspect
 

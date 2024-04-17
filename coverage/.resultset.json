@@ -1,7 +1,7 @@
 {
   "Unknown Test Framework": {
     "coverage": {
-      "/Users/clydeautin/Turing/Mod-1/group_projects/futbol/lib/game_teams.rb": {
+      "/Users/gbowman/turing_mod_1/futbol/lib/game_teams.rb": {
         "lines": [
           1,
           null,
@@ -41,7 +41,7 @@
           null
         ]
       },
-      "/Users/clydeautin/Turing/Mod-1/group_projects/futbol/lib/games.rb": {
+      "/Users/gbowman/turing_mod_1/futbol/lib/games.rb": {
         "lines": [
           1,
           null,
@@ -81,7 +81,7 @@
           null
         ]
       },
-      "/Users/clydeautin/Turing/Mod-1/group_projects/futbol/lib/teams.rb": {
+      "/Users/gbowman/turing_mod_1/futbol/lib/teams.rb": {
         "lines": [
           1,
           null,
@@ -114,7 +114,7 @@
         ]
       }
     },
-    "timestamp": 1713308717
+    "timestamp": 1713382928
   },
   "RSpec": {
     "coverage": {
