@@ -120,4 +120,16 @@ class StatTracker
         return 0 if total_games == 0
         (total_goals.to_f / total_games.to_f).round(2)
     end
+
+    def average_goals_per_season
+        season_hash = Hash.new(0)
+        @games.each do |game|
+            season_hash[game.season] += game.away_goals.to_i + game.home_goals.to_i
+        end
+
+        season_hash.each do |season, goals|
+            season_hash[season] = (goals.to_f / @games.count.to_f).round(2)
+        end
+        season_hash
+    end
 end

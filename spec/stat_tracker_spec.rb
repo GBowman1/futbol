@@ -22,7 +22,7 @@ RSpec.describe StatTracker do
 
     describe "highest_total_score" do
         it "returns the highest total score of all games played" do
-            expect(@stat_tracker.highest_total_score).to eq(5)
+            expect(@stat_tracker.highest_total_score).to eq(8)
         end
     end
 
@@ -53,7 +53,10 @@ RSpec.describe StatTracker do
     describe "Season Games Count" do
         it 'can count the number of games played in a season' do
             expected_season = {
-            "20122013"=>25
+            "20122013"=>25,
+            "20152016"=>12,
+            "20162017"=>12,
+            "20172018"=>9
         }
             expect(@stat_tracker.season_games_count).to eq(expected_season)
         end
@@ -61,7 +64,20 @@ RSpec.describe StatTracker do
 
     describe "Average Goals Per Game" do
         it 'can calculate the average goals per game' do
-            expect(@stat_tracker.average_goals_per_game).to eq(3.84)
+            expect(@stat_tracker.average_goals_per_game).to eq(4.4)
+        end
+    end
+
+    describe "Average Goals Per Season" do
+        it 'can calculate the average goals per season' do
+            expected = {
+            '20122013'=>1.66,
+            '20152016'=>1.00,
+            '20162017'=>0.98,
+            '20172018'=>0.76
+
+        }
+            expect(@stat_tracker.average_goals_per_season).to eq(expected)
         end
     end
 end
