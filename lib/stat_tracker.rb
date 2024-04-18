@@ -24,11 +24,11 @@ class StatTracker
     def self.generate_csv_data(data)
         csv_objects = []
         CSV.foreach(data, headers: true) do |row|
-            if data == './data/games.csv'
+            if data == './data/test_games.csv'
                 csv_objects << Games.new(row)
             elsif data == './data/teams.csv'
                 csv_objects << Teams.new(row)
-            elsif data == './data/game_teams.csv'
+            elsif data == './data/test_game_teams.csv'
                 csv_objects << GameTeams.new(row)
             end
         end
@@ -46,20 +46,32 @@ class StatTracker
             game.away_goals.to_i + game.home_goals.to_i
         end.min
     end
-
-    def percentage_home_wins # this test is failing because anytime I try to hit an attribute the whole csv array is returned
-        win_count = 0
-        home_game_count = 0
-        @game_teams.each do |game_team|
-            binding.pry
-            if game_teams.hoa == 'home'
-                home_game_count += 1
-                if game_teams.result == 'WIN'
-                    win_count += 1
-                end
+    def percentage_home_wins 
+        home_win_count = 0
+        game_count = @game_teams.count.to_f
+        @game_teams.each do |game_teams|
+            # binding.pry
+            if game_teams.hoa == 'home' && game_teams.result == 'WIN'
+                home_win_count += 1
             end
         end
-        return 0 if home_game_count == 0
-        (win_count.to_f / home_game_count.to_f * 100).round(2) 
+        # require 'pry'; binding.pry
+        return 0 if home_win_count == 0
+        (home_win_count.to_f / game_count).round(2) 
     end
+    def percentage_away_wins 
+        away_win_count = 0
+        game_count = @game_teams.count.to_f
+        @game_teams.each do |game_teams|
+
+            if game_teams.hoa == 'away' && game_teams.result == 'WIN'
+                away_win_count += 1
+            end
+        end
+
+        return 0 if away_win_count == 0
+        (away_win_count.to_f / game_count).round(2) 
+    end
+
+    
 end
