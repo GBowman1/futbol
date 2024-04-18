@@ -24,11 +24,11 @@ class StatTracker
     def self.generate_csv_data(data)
         csv_objects = []
         CSV.foreach(data, headers: true) do |row|
-            if data == './data/games.csv'
+            if data == './data/test_games.csv'
                 csv_objects << Games.new(row)
-            elsif data == './data/teams.csv'
+            elsif data == './data/test_teams.csv'
                 csv_objects << Teams.new(row)
-            elsif data == './data/game_teams.csv'
+            elsif data == './data/test_game_teams.csv'
                 csv_objects << GameTeams.new(row)
             end
         end
