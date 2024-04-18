@@ -24,3 +24,14 @@ game_id,team_id,HoA,result,settled_in,head_coach,goals,shots,tackles,pim,powerPl
 2012030233,16,away,LOSS,REG,Joel Quenneville,1,10,22,22,4,0,43.9,5,6
 2012030233,17,home,WIN,REG,Mike Babcock,3,7,28,10,5,0,56.1,9,3
 2012030234,16,away,LOSS,REG,Joel Quenneville,0,7,22,10,3,0,48.3,8,4
+2012030234,17,home,WIN,REG,Mike Babcock,2,6,30,10,3,1,51.7,10,8
+2012030235,17,away,LOSS,REG,Mike Babcock,1,6,25,10,4,0,50.8,5,3
+2012030235,16,home,WIN,REG,Joel Quenneville,2,11,22,12,3,2,49.2,7,7
+2012030236,16,away,LOSS,REG,Joel Quenneville,2,7,16,10,5,1,39,3,5
+2012030236,17,home,WIN,REG,Mike Babcock,3,9,29,12,3,0,61,12,4
+2012030237,17,away,LOSS,OT,Mike Babcock,1,6,38,10,2,0,52.5,6,6
+2012030237,16,home,WIN,OT,Joel Quenneville,2,8,36,6,4,0,47.5,14,9
+2012030121,9,away,TIE,REG,Paul MacLean,2,7,31,23,2,0,39.4,9,1
+2012030121,8,home,TIE,REG,Michel Therrien,2,12,24,6,5,1,60.6,11,10
+2012030122,9,away,LOSS,REG,Paul MacLean,1,7,26,8,4,0,42.1,4,0
+2012030122,8,home,WIN,REG,Michel Therrien,3,8,37,12,2,0,57.9,7,6
