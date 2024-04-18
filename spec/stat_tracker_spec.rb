@@ -33,7 +33,7 @@ RSpec.describe StatTracker do
     end
 
     describe "percentage_home_wins" do  # this test is failing because anytime I try to hit an attribute the whole csv array is returned
-        xit	'percentage of games that a home team has won' do
+        it	'percentage of games that a home team has won' do
             expect(@stat_tracker.percentage_home_wins).to eq(0.44)
         end
     end

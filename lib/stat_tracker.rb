@@ -50,8 +50,8 @@ class StatTracker
     def percentage_home_wins # this test is failing because anytime I try to hit an attribute the whole csv array is returned
         win_count = 0
         home_game_count = 0
-        @game_teams.each do |game_team|
-            binding.pry
+        @game_teams.each do |game_teams|
+            # binding.pry
             if game_teams.hoa == 'home'
                 home_game_count += 1
                 if game_teams.result == 'WIN'
@@ -60,6 +60,6 @@ class StatTracker
             end
         end
         return 0 if home_game_count == 0
-        (win_count.to_f / home_game_count.to_f * 100).round(2) 
+        (win_count.to_f / home_game_count.to_f).round(2) 
     end
 end
