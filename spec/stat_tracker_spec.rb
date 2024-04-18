@@ -21,8 +21,14 @@ RSpec.describe StatTracker do
     end
 
     describe "highest_total_score" do
-        it "returns the highest total  of all games played" do
+        it "returns the highest total score of all games played" do
             expect(@stat_tracker.highest_total_score).to eq(11)
+        end
+    end
+
+    describe "lowest_total_score" do
+        it "returns the lowest total score of all games played" do
+            expect(@stat_tracker.lowest_total_score).to eq(0)
         end
     end
 end

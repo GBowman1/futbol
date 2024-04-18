@@ -1,6 +1,7 @@
 require 'csv'
 
 class StatTracker
+
     attr_reader :teams,
                 :games,
                 :game_teams
@@ -37,5 +38,11 @@ class StatTracker
         @games.map do |game|
             game.away_goals.to_i + game.home_goals.to_i
         end.max
+    end
+
+    def lowest_total_score
+        @games.map do |game|
+            game.away_goals.to_i + game.home_goals.to_i
+        end.min
     end
 end
