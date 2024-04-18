@@ -50,4 +50,12 @@ RSpec.describe StatTracker do
         end
     end
 
+    describe "Season Games Count" do
+        it 'can count the number of games played in a season' do
+            expected_season = {
+            "20122013"=>25
+        }
+            expect(@stat_tracker.season_games_count).to eq(expected_season)
+        end
+    end
 end

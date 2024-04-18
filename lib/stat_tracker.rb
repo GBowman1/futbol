@@ -13,24 +13,39 @@ class StatTracker
         @game_teams = game_teams
     end
     
+    # def self.from_csv(data)
+    #     games = generate_csv_data(data[:games])
+    #     teams = generate_csv_data(data[:teams])
+    #     game_teams = generate_csv_data(data[:game_teams])
+
+    #     StatTracker.new(teams, games, game_teams)
+    # end
+
+    # def self.generate_csv_data(data)
+    #     csv_objects = []
+    #     CSV.foreach(data, headers: true) do |row|
+    #         if data == './data/test_games.csv'
+    #             csv_objects << Games.new(row)
+    #         elsif data == './data/teams.csv'
+    #             csv_objects << Teams.new(row)
+    #         elsif data == './data/test_game_teams.csv'
+    #             csv_objects << GameTeams.new(row)
+    #         end
+    #     end
+    #     csv_objects
+    # end
     def self.from_csv(data)
-        games = generate_csv_data(data[:games])
-        teams = generate_csv_data(data[:teams])
-        game_teams = generate_csv_data(data[:game_teams])
+        games = generate_csv_data(data[:games], Games)
+        teams = generate_csv_data(data[:teams], Teams)
+        game_teams = generate_csv_data(data[:game_teams], GameTeams)
 
         StatTracker.new(teams, games, game_teams)
     end
-
-    def self.generate_csv_data(data)
+    
+    def self.generate_csv_data(data, klass)
         csv_objects = []
         CSV.foreach(data, headers: true) do |row|
-            if data == './data/test_games.csv'
-                csv_objects << Games.new(row)
-            elsif data == './data/teams.csv'
-                csv_objects << Teams.new(row)
-            elsif data == './data/test_game_teams.csv'
-                csv_objects << GameTeams.new(row)
-            end
+            csv_objects << klass.new(row)
         end
         csv_objects
     end
@@ -87,4 +102,12 @@ class StatTracker
         (tie_count.to_f / game_count).round(2)
     end
     
+    def season_games_count
+        hash = Hash.new(0)
+        @games.each do |game|
+            hash[game.season] += 1
+        end
+        hash
+    end
+
 end
