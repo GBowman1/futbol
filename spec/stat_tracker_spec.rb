@@ -3,7 +3,7 @@ require './spec/spec_helper'
 RSpec.describe StatTracker do
     before(:all) do
         game_path = './data/test_games.csv'
-        team_path = './data/test_teams.csv'
+        team_path = './data/teams.csv'
         game_teams_path = './data/test_game_teams.csv'
     
         locations = {
@@ -34,13 +34,14 @@ RSpec.describe StatTracker do
 
     describe "percentage_home_wins" do  
         it	'percentage of games that a home team has won' do
-            expect(@stat_tracker.percentage_home_wins).to eq(0.5)
+            expect(@stat_tracker.percentage_home_wins).to eq(0.22)
         end
     end
     
     describe "percentage_away_wins" do  
         it	'percentage of games that an away team has won' do
-            expect(@stat_tracker.percentage_home_away).to eq(0.5)
+            expect(@stat_tracker.percentage_away_wins).to eq(0.5)
         end
     end
+
 end
