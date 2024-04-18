@@ -1,0 +1,10 @@
+team_id,franchiseId,teamName,abbreviation,Stadium,link
+1,23,Atlanta United,ATL,Mercedes-Benz Stadium,/api/v1/teams/1
+4,16,Chicago Fire,CHI,SeatGeek Stadium,/api/v1/teams/4
+26,14,FC Cincinnati,CIN,Nippert Stadium,/api/v1/teams/26
+14,31,DC United,DC,Audi Field,/api/v1/teams/14
+6,6,FC Dallas,DAL,Toyota Stadium,/api/v1/teams/6
+3,10,Houston Dynamo,HOU,BBVA Stadium,/api/v1/teams/3
+5,17,Sporting Kansas City,SKC,Children's Mercy Park,/api/v1/teams/5
+17,12,LA Galaxy,LA,Dignity Health Sports Park,/api/v1/teams/17
+28,29,Los Angeles FC,LFC,Banc of California Stadium,/api/v1/teams/28
