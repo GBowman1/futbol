@@ -58,4 +58,10 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.season_games_count).to eq(expected_season)
         end
     end
+
+    describe "Average Goals Per Game" do
+        it 'can calculate the average goals per game' do
+            expect(@stat_tracker.average_goals_per_game).to eq(3.84)
+        end
+    end
 end

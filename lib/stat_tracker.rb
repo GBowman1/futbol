@@ -110,4 +110,14 @@ class StatTracker
         hash
     end
 
+    def average_goals_per_game
+        total_games = @games.count
+        total_goals = 0 
+        @games.each do |game|
+            game_total = game.away_goals.to_i + game.home_goals.to_i
+            total_goals += game_total
+        end
+        return 0 if total_games == 0
+        (total_goals.to_f / total_games.to_f).round(2)
+    end
 end
