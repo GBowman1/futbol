@@ -116,6 +116,7 @@
       "/Users/clydeautin/Turing/Mod-1/group_projects/futbol/lib/stat_tracker.rb": {
         "lines": [
           1,
+          1,
           null,
           1,
           null,
@@ -159,14 +160,31 @@
           null,
           1,
           1,
+          null,
           7441,
           null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
           null,
           null
         ]
       }
     },
-    "timestamp": 1713411451
+    "timestamp": 1713413859
   },
   "Unknown Test Framework": {
     "coverage": {

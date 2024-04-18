@@ -12,15 +12,15 @@ class GameTeams
                 :shots,
                 :tackles
 
-    def initialize(csv)
-        @game_id = csv['game_id']
-        @team_id = csv['team_id']
-        @hoa = csv['hoa']
-        @result = csv['result']
-        @head_coach = csv['head_coach']
-        @goals = csv['goals']
-        @shots = csv['shots']
-        @tackles = csv['tackles']
+    def initialize(csv_file_path)
+        @game_id = csv_file_path['game_id']
+        @team_id = csv_file_path['team_id']
+        @hoa = csv_file_path['HoA']
+        @result = csv_file_path['result']
+        @head_coach = csv_file_path['head_coach']
+        @goals = csv_file_path['goals']
+        @shots = csv_file_path['shots']
+        @tackles = csv_file_path['tackles']
         @@game_box_score << self
     end
 
