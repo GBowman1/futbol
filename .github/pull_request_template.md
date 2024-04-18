@@ -9,5 +9,5 @@
 
 
 ## Group Project Check List
-- [ ] I made test for my code, and made sure they were passing before sucmitting PR
-- [ ] I assigned atleast 2 group members to review my PR
+- [ ] I made test for my code, and made sure they were passing before submitting PR
+- [ ] I assigned at least 1 group members to review my PR
