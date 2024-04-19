@@ -13,42 +13,42 @@ class StatTracker
         @game_teams = game_teams
     end
     
-    # def self.from_csv(data)
-    #     games = generate_csv_data(data[:games])
-    #     teams = generate_csv_data(data[:teams])
-    #     game_teams = generate_csv_data(data[:game_teams])
-
-    #     StatTracker.new(teams, games, game_teams)
-    # end
-
-    # def self.generate_csv_data(data)
-    #     csv_objects = []
-    #     CSV.foreach(data, headers: true) do |row|
-    #         if data == './data/test_games.csv'
-    #             csv_objects << Games.new(row)
-    #         elsif data == './data/teams.csv'
-    #             csv_objects << Teams.new(row)
-    #         elsif data == './data/test_game_teams.csv'
-    #             csv_objects << GameTeams.new(row)
-    #         end
-    #     end
-    #     csv_objects
-    # end
     def self.from_csv(data)
-        games = generate_csv_data(data[:games], Games)
-        teams = generate_csv_data(data[:teams], Teams)
-        game_teams = generate_csv_data(data[:game_teams], GameTeams)
+        games = generate_csv_data(data[:games])
+        teams = generate_csv_data(data[:teams])
+        game_teams = generate_csv_data(data[:game_teams])
 
         StatTracker.new(teams, games, game_teams)
     end
-    
-    def self.generate_csv_data(data, klass)
+
+    def self.generate_csv_data(data)
         csv_objects = []
         CSV.foreach(data, headers: true) do |row|
-            csv_objects << klass.new(row)
+            if data == './data/test_games.csv' || data == './data/games.csv'
+                csv_objects << Games.new(row)
+            elsif data == './data/teams.csv'
+                csv_objects << Teams.new(row)
+            elsif data == './data/test_game_teams.csv' || data == './data/game_teams.csv'
+                csv_objects << GameTeams.new(row)
+            end
         end
         csv_objects
     end
+    # def self.from_csv(data)
+    #     games = generate_csv_data(data[:games], Games)
+    #     teams = generate_csv_data(data[:teams], Teams)
+    #     game_teams = generate_csv_data(data[:game_teams], GameTeams)
+
+    #     StatTracker.new(teams, games, game_teams)
+    # end
+    
+    # def self.generate_csv_data(data, klass)
+    #     csv_objects = []
+    #     CSV.foreach(data, headers: true) do |row|
+    #         csv_objects << klass.new(row)
+    #     end
+    #     csv_objects
+    # end
 
     def highest_total_score
         @games.map do |game|
@@ -74,7 +74,7 @@ class StatTracker
         return 0 if home_win_count == 0
         (home_win_count.to_f / game_count).round(2) 
     end
-    def percentage_away_wins 
+    def percentage_visitor_wins 
         away_win_count = 0
         game_count = @game_teams.count.to_f / 2
         @game_teams.each do |game_teams|
@@ -102,7 +102,7 @@ class StatTracker
         (tie_count.to_f / game_count).round(2)
     end
     
-    def season_games_count
+    def count_of_games_by_season
         hash = Hash.new(0)
         @games.each do |game|
             hash[game.season] += 1
@@ -121,14 +121,15 @@ class StatTracker
         (total_goals.to_f / total_games.to_f).round(2)
     end
 
-    def average_goals_per_season
+    def average_goals_by_season
         season_hash = Hash.new(0)
         @games.each do |game|
             season_hash[game.season] += game.away_goals.to_i + game.home_goals.to_i
         end
 
         season_hash.each do |season, goals|
-            season_hash[season] = (goals.to_f / @games.count.to_f).round(2)
+            # season_hash[season] = (goals.to_f / @games.count.to_f).round(2)
+            season_hash[season] = (goals.to_f / count_of_games_by_season[season]).round(2)
         end
         season_hash
     end

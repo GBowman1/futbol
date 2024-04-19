@@ -38,9 +38,9 @@ RSpec.describe StatTracker do
         end
     end
     
-    describe "percentage_away_wins" do  
+    describe "percentage_visitor_wins" do  
         it	'percentage of games that an away team has won' do
-            expect(@stat_tracker.percentage_away_wins).to eq(0.28)
+            expect(@stat_tracker.percentage_visitor_wins).to eq(0.28)
         end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe StatTracker do
         end
     end
 
-    describe "Season Games Count" do
+    describe "#count_of_games_by_season" do
         it 'can count the number of games played in a season' do
             expected_season = {
             "20122013"=>25,
@@ -58,26 +58,26 @@ RSpec.describe StatTracker do
             "20162017"=>12,
             "20172018"=>9
         }
-            expect(@stat_tracker.season_games_count).to eq(expected_season)
+            expect(@stat_tracker.count_of_games_by_season).to eq(expected_season)
         end
     end
 
-    describe "Average Goals Per Game" do
+    describe "#average_goals_per_game" do
         it 'can calculate the average goals per game' do
             expect(@stat_tracker.average_goals_per_game).to eq(4.4)
         end
     end
 
-    describe "Average Goals Per Season" do
+    describe "#average_goals_by_season" do
         it 'can calculate the average goals per season' do
             expected = {
-            '20122013'=>1.66,
-            '20152016'=>1.00,
-            '20162017'=>0.98,
-            '20172018'=>0.76
+            '20122013'=>3.84,
+            '20152016'=>4.83,
+            '20162017'=>4.75,
+            '20172018'=>4.89
 
         }
-            expect(@stat_tracker.average_goals_per_season).to eq(expected)
+            expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
     end
 end
