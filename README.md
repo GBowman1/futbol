@@ -19,6 +19,9 @@ Our plan is to meet daily for stand-ups and conduct a retro/DTR check-in Friday 
 [Link to GitHub Projects](https://github.com/users/GBowman1/projects/2/views/1)
 - This contains a Kanban board where we can track the progress of our individual tasks.
 
+[Link to Retro board](https://easyretro.io/publicboard/DGHHy10bD1hX62q7VYUZNsmcw7u1/06325e20-f367-4c3d-ba5a-9dcd79686721)
+- This board covers our Retro items
+
 ### Project Design
 We collaborated as a team from the start and built off one anothers ideas. We discussed some variations in defining classes, but built consensus quickly through a streamlined discussion.
 
