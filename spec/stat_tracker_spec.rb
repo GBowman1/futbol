@@ -80,4 +80,16 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
     end
+
+    describe 'Team count' do
+        it 'can count the number of teams' do
+            expect(@stat_tracker.team_count).to eq(32)
+        end
+    end
+
+    describe 'Best Offense' do
+        it 'can find the best offense' do
+            expect(@stat_tracker.best_offense).to eq("FC Dallas")
+        end
+    end
 end
