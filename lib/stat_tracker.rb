@@ -133,4 +133,8 @@ class StatTracker
         end
         season_hash
     end
+
+    def team_count
+        all_teams = teams.count
+    end
 end

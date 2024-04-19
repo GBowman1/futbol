@@ -80,4 +80,9 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.average_goals_by_season).to eq(expected)
         end
     end
+
+    describe 'Team count'
+        it 'can count the number of teams' do
+            expect(@stat_tracker.team_count).to eq(32)
+        end
 end
