@@ -183,4 +183,17 @@ class StatTracker
         end
         find_team_name(best_team_id[0])
     end
+    def highest_scoring_home_team
+        team_avg_goals_home = Hash.new{|hash, key| hash[key] = {total_goals: 0, games: 0}}
+        @game_teams.each do |game_team|
+            if game_team.hoa == "home"
+                team_avg_goals_home[game_team.team_id][:total_goals] += game_team.goals.to_i
+                team_avg_goals_home[game_team.team_id][:games] += 1
+            end
+        end
+        best_team_id = team_avg_goals_home.max_by do |team_id, data|
+            (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(best_team_id[0])
+    end
 end

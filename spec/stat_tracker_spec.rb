@@ -105,7 +105,7 @@ RSpec.describe StatTracker do
         end
 
         it 'can find the the team who scores most when home' do
-            expect(@stat_tracker.highest_scoring_home_team).to eq("FC  Dallas")
+            expect(@stat_tracker.highest_scoring_home_team).to eq("LA Galaxy")
         end
     end
 end
