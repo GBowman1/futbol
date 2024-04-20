@@ -98,4 +98,10 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
         end
     end
+
+    describe 'highest scoring visitor' do
+        it 'can find the the team who scores most when away' do
+            expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+        end
+    end
 end
