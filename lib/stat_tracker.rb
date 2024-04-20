@@ -110,7 +110,7 @@ class StatTracker
     #     hash
     # end
 
-    def count_of_games_by_season
+    def count_of_games_by_season #reformatting of how the above was written
         @games.each_with_object(Hash.new(0)) { |game, count| count[game.season] += 1 }
       end
       
@@ -196,14 +196,13 @@ class StatTracker
         find_team_name(worst_team_id[0])
     end
 
-    def calculate_team_averages(filter_condition = nil)
+    def calculate_team_averages(filter_condition = nil) # helper method to calculate team averages, can take in either home, away or nothing to apply to all games
         team_avg_goals = Hash.new { |hash, key| hash[key] = { total_goals: 0, games: 0 } }
         @game_teams.each do |game_team|
-          next if filter_condition && game_team.hoa != filter_condition
-          team_avg_goals[game_team.team_id][:total_goals] += game_team.goals.to_i
-          team_avg_goals[game_team.team_id][:games] += 1
+            next if filter_condition && game_team.hoa != filter_condition #  immediately communicates that the loop should skip iterations where the game_team doesn't meet the specified condition
+            team_avg_goals[game_team.team_id][:total_goals] += game_team.goals.to_i
+            team_avg_goals[game_team.team_id][:games] += 1
         end
         team_avg_goals
-      end
-      
+    end
 end
