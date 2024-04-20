@@ -151,6 +151,18 @@ class StatTracker
         find_team_name(best_team_id[0])
     end
 
+    def worst_offense
+        team_avg_goals = Hash.new{|hash, key| hash[key] = {total_goals: 0, games: 0}}
+        @game_teams.each do |game_team|
+            team_avg_goals[game_team.team_id][:total_goals] += game_team.goals.to_i
+            team_avg_goals[game_team.team_id][:games] += 1
+        end
+        worst_team_id = team_avg_goals.min_by do |team_id, data|
+            (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(worst_team_id[0])
+    end
+
     def find_team_name(team_id)
         @teams.find do |team|
             team.team_id == team_id
