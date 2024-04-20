@@ -205,4 +205,12 @@ class StatTracker
         end
         team_avg_goals
     end
+
+    def winningest_coach
+        #return should be a string
+        # Need teams winning percentage by season
+        # Need hash with every team's best season and winning percentage
+        # Identify team with the season with the highest win percentage
+        # return string with head coach name and and team's win percentage
+    end
 end
