@@ -95,7 +95,7 @@ RSpec.describe StatTracker do
 
     describe 'Worst Offense' do
         it 'can find the worst offense' do
-            expect(@stat_tracker.worst_offense).to eq("Sportin")
+            expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
         end
     end
 end
