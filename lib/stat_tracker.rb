@@ -196,7 +196,7 @@ class StatTracker
         end
         find_team_name(best_team_id[0])
     end
-    def lowest_scoring_away_team
+    def lowest_scoring_visitor
         team_avg_goals_away = Hash.new{|hash, key| hash[key] = {total_goals: 0, games: 0}}
         @game_teams.each do |game_team|
             if game_team.hoa == "away"

@@ -109,7 +109,11 @@ RSpec.describe StatTracker do
         end
 
         it 'can find the the team who scores least when away' do
-            expect(@stat_tracker.lowest_scoring_away_team).to eq("Sporting Kansas City")
+            expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+        end
+
+        it 'can find the the team who scores least when home' do
+            expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
         end
     end
 end
