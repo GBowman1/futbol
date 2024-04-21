@@ -92,4 +92,34 @@ RSpec.describe StatTracker do
             expect(@stat_tracker.best_offense).to eq("FC Dallas")
         end
     end
+
+    describe 'Worst Offense' do
+        it 'can find the worst offense' do
+            expect(@stat_tracker.worst_offense).to eq("Sporting Kansas City")
+        end
+    end
+
+    describe 'scoring ranks' do
+        it 'can find the the team who scores most when away' do
+            expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
+        end
+
+        it 'can find the the team who scores most when home' do
+            expect(@stat_tracker.highest_scoring_home_team).to eq("LA Galaxy")
+        end
+
+        it 'can find the the team who scores least when away' do
+            expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+        end
+
+        it 'can find the the team who scores least when home' do
+            expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+        end
+    end
+
+    describe 'Coach Stats' do
+        it 'can find the winningest coaches' do
+            expect(@stat_tracker.winningest_coaches).to eq("Claude Julien")
+        end
+    end
 end

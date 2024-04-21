@@ -102,13 +102,18 @@ class StatTracker
         (tie_count.to_f / game_count).round(2)
     end
     
-    def count_of_games_by_season
-        hash = Hash.new(0)
-        @games.each do |game|
-            hash[game.season] += 1
-        end
-        hash
-    end
+    # def count_of_games_by_season
+    #     hash = Hash.new(0)
+    #     @games.each do |game|
+    #         hash[game.season] += 1
+    #     end
+    #     hash
+    # end
+
+    def count_of_games_by_season #reformatting of how the above was written
+        @games.each_with_object(Hash.new(0)) { |game, count| count[game.season] += 1 }
+      end
+      
 
     def average_goals_per_game
         total_games = @games.count
@@ -140,15 +145,19 @@ class StatTracker
 
     #Get average of all goals scored by team for all teams
     def best_offense
-        team_avg_goals = Hash.new{|hash, key| hash[key] = {total_goals: 0, games: 0}}
-        @game_teams.each do |game_team|
-            team_avg_goals[game_team.team_id][:total_goals] += game_team.goals.to_i
-            team_avg_goals[game_team.team_id][:games] += 1
-        end
+        team_avg_goals = calculate_team_averages
         best_team_id = team_avg_goals.max_by do |team_id, data|
             (data[:total_goals].to_f / data[:games]).round(2)
         end
         find_team_name(best_team_id[0])
+    end
+
+    def worst_offense
+        team_avg_goals = calculate_team_averages
+        worst_team_id = team_avg_goals.min_by do |team_id, data|
+            (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(worst_team_id[0])
     end
 
     def find_team_name(team_id)
@@ -157,4 +166,51 @@ class StatTracker
         end.team_name
     end
 
+    def highest_scoring_visitor
+        team_avg_goals_away = calculate_team_averages("away")
+            best_team_id = team_avg_goals_away.max_by do |team_id, data|
+                (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(best_team_id[0])
+    end
+    def highest_scoring_home_team
+        team_avg_goals_home = calculate_team_averages("home")
+        best_team_id = team_avg_goals_home.max_by do |team_id, data|
+            (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(best_team_id[0])
+    end
+    def lowest_scoring_visitor
+        team_avg_goals_away = calculate_team_averages("away")
+            worst_team_id = team_avg_goals_away.min_by do |team_id, data|
+                (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(worst_team_id[0])
+    end
+    
+    def lowest_scoring_home_team
+        team_avg_goals_home = calculate_team_averages("home")
+            worst_team_id = team_avg_goals_home.min_by do |team_id, data|
+                (data[:total_goals].to_f / data[:games]).round(2)
+        end
+        find_team_name(worst_team_id[0])
+    end
+
+    def calculate_team_averages(filter_condition = nil) # helper method to calculate team averages, can take in either home, away or nothing to apply to all games
+        team_avg_goals = Hash.new { |hash, key| hash[key] = { total_goals: 0, games: 0 } }
+        @game_teams.each do |game_team|
+            next if filter_condition && game_team.hoa != filter_condition #  immediately communicates that the loop should skip iterations where the game_team doesn't meet the specified condition
+            team_avg_goals[game_team.team_id][:total_goals] += game_team.goals.to_i
+            team_avg_goals[game_team.team_id][:games] += 1
+        end
+        team_avg_goals
+    end
+
+    def winningest_coach
+        #return should be a string
+        # Need teams winning percentage by season
+        # Need hash with every team's best season and winning percentage
+        # Identify team with the season with the highest win percentage
+        # return string with head coach name and and team's win percentage
+    end
 end
