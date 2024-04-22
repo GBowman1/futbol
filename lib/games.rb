@@ -27,10 +27,4 @@ class Games
     def self.all_games
         @@all_games
     end
-
-    # def self.generate_games
-    #     CSV.foreach("./data/games.csv", headers: true, header_converters: :symbol ) do |row|
-    #         Games.new(row)
-    #     end
-    # end
 end

@@ -1,5 +1,4 @@
 require 'csv'
-require 'pry'
 
 class StatTracker
 
@@ -42,10 +41,10 @@ class StatTracker
     #     StatTracker.new(teams, games, game_teams)
     # end
     
-    # def self.generate_csv_data(data, klass)
+    # def self.generate_csv_data(data, classname)
     #     csv_objects = []
     #     CSV.foreach(data, headers: true) do |row|
-    #         csv_objects << klass.new(row)
+    #         csv_objects << classname.new(row)
     #     end
     #     csv_objects
     # end
@@ -65,12 +64,10 @@ class StatTracker
         home_win_count = 0
         game_count = @game_teams.count.to_f / 2
         @game_teams.each do |game_teams|
-            # binding.pry
             if game_teams.hoa == 'home' && game_teams.result == 'WIN'
                 home_win_count += 1
             end
         end
-        # require 'pry'; binding.pry
         return 0 if home_win_count == 0
         (home_win_count.to_f / game_count).round(2) 
     end
@@ -112,8 +109,7 @@ class StatTracker
 
     def count_of_games_by_season #reformatting of how the above was written
         @games.each_with_object(Hash.new(0)) { |game, count| count[game.season] += 1 }
-      end
-      
+    end
 
     def average_goals_per_game
         total_games = @games.count
@@ -139,8 +135,8 @@ class StatTracker
         season_hash
     end
 
-    def team_count
-        all_teams = teams.count
+    def count_of_teams
+        @teams.count
     end
 
     #Get average of all goals scored by team for all teams
@@ -206,11 +202,122 @@ class StatTracker
         team_avg_goals
     end
 
-    def winningest_coach
-        #return should be a string
-        # Need teams winning percentage by season
-        # Need hash with every team's best season and winning percentage
-        # Identify team with the season with the highest win percentage
-        # return string with head coach name and and team's win percentage
+    def winningest_coach(season)
+        season_games = @games.find_all do |game|
+            game.season == season
+        end
+        season_wins = @game_teams.find_all do |game_team|
+            season_games.any? do |game|
+                game_team.game_id == game.game_id && game_team.result == "WIN"
+            end
+        end
+        coach_win_count = Hash.new(0)
+        season_wins.each do |game_team|
+            coach_win_count[game_team.head_coach] += 1
+        end
+        coach_win_count.max_by do |coach, wins|
+            wins
+        end.first
+    end
+
+    def worst_coach(season)
+        season_games = @games.find_all do |game|
+            game.season == season
+        end
+
+        season_losses = @game_teams.find_all do |game_team|
+            season_games.any? do |game|
+                game_team.game_id == game.game_id && game_team.result == "LOSS"
+            end
+        end
+
+        coach_loss_count = Hash.new(0)
+
+        season_losses.each do |game_team|
+            coach_loss_count[game_team.head_coach] += 1
+        end
+
+        coach_loss_count.min_by do |coach, losses|
+            losses
+        end.first
+    end
+
+    def most_accurate_team(season)
+    team_accuracy = calculate_team_accuracy(season)
+
+    most_accurate_team_id = team_accuracy.max_by do |team_id, stats|
+        stats[:goals].to_f / stats[:shots]
+    end.first
+    
+    most_accurate_team = @teams.find { |team| team.team_id == most_accurate_team_id }
+    most_accurate_team.team_name
+    end
+    
+
+    def calculate_team_accuracy(season)
+        team_accuracy = Hash.new { |hash, key| hash[key] = { goals: 0, shots: 0 } }
+        season_games = @games.find_all { |game| game.season == season }
+
+        season_game_teams = @game_teams.find_all do |game_team|
+            season_games.any? { |game| game_team.game_id == game.game_id }
+        end
+
+        season_game_teams.each do |game_team|
+            team_accuracy[game_team.team_id][:goals] += game_team.goals.to_i
+            team_accuracy[game_team.team_id][:shots] += game_team.shots.to_i
+        end
+        team_accuracy
+    end
+
+    def least_accurate_team(season)
+        team_accuracy = calculate_team_accuracy(season)
+
+        least_accurate_team_id = team_accuracy.min_by do |team_id, stats|
+            stats[:goals].to_f / stats[:shots]
+        end.first
+
+        least_accurate_team = @teams.find { |team| team.team_id == least_accurate_team_id }
+
+        least_accurate_team.team_name
+    end
+
+    def most_tackles(season)
+        team_tackles = calculate_team_tackles(season)
+
+        most_tackles_team_id = team_tackles.max_by do |team_id, tackles|
+            tackles
+        end.first
+
+        most_tackles_team = @teams.find { |team| team.team_id == most_tackles_team_id }
+
+        most_tackles_team.team_name
+    end
+
+    def calculate_team_tackles(season)
+        team_tackles = Hash.new(0)
+
+        season_games = @games.find_all { |game| game.season == season }
+
+        season_game_teams = @game_teams.find_all do |game_team|
+            season_games.any? { |game| game_team.game_id == game.game_id }
+        end
+
+        season_game_teams.each do |game_team|
+            team_tackles[game_team.team_id] += game_team.tackles.to_i
+        end
+
+        team_tackles
+    end
+
+    def fewest_tackles(season)
+        team_tackles = calculate_team_tackles(season)
+
+        fewest_tackles_team_id = team_tackles.min_by do |team_id, tackles|
+            tackles
+        end.first
+
+        fewest_tackles_team = @teams.find { |team| team.team_id == fewest_tackles_team_id }
+
+        fewest_tackles_team.team_name
     end
 end
