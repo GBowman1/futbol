@@ -2,17 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Games do
     before(:all) do
-    
-        @csv = {
-            game_id: "2012030555",
-            season: "20122013",
-            type: "Postseason",
-            date_time: "5/19/13",
-            away_team_id: 3,
-            home_team_id: 6,
-            away_goals: 2,
-            home_goals: 1
-        }
+        @csv = CSV.read('./data/test_games.csv', headers: true).first
     end
 
     it 'exists' do     
@@ -22,15 +12,16 @@ RSpec.describe Games do
     end
 
     it 'should have attributes' do
-        Games.generate_games
+        games = Games.new(@csv)
 
-        expect(Games.all_games[1].game_id).to eq("2012030221")
-        expect(Games.all_games[1].season).to eq("20122013")
-        expect(Games.all_games[1].type).to eq("Postseason")
-        expect(Games.all_games[1].date_time).to eq("5/16/13")
-        expect(Games.all_games[1].away_team_id).to eq("3")
-        expect(Games.all_games[1].home_team_id).to eq("6")
-        expect(Games.all_games[1].away_goals).to eq("2")
-        expect(Games.all_games[1].home_goals).to eq("3")
+        expect(games.game_id).to eq("2012030221")
+        expect(games.season).to eq("20122013")
+        expect(games.away_team_id).to eq("3")
+        expect(games.home_team_id).to eq("6")
+        expect(games.away_goals).to eq("2")
+        expect(games.home_goals).to eq("3")
+        expect(games.type).to eq("Postseason")
+        expect(games.date_time).to eq("5/16/13")
+
     end
 end

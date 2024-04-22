@@ -11,43 +11,22 @@ class StatTracker
         @games = games
         @game_teams = game_teams
     end
-    
+
     def self.from_csv(data)
-        games = generate_csv_data(data[:games])
-        teams = generate_csv_data(data[:teams])
-        game_teams = generate_csv_data(data[:game_teams])
+        games = generate_csv_data(data[:games], Games)
+        teams = generate_csv_data(data[:teams], Teams)
+        game_teams = generate_csv_data(data[:game_teams], GameTeams)
 
         StatTracker.new(teams, games, game_teams)
     end
-
-    def self.generate_csv_data(data)
+    
+    def self.generate_csv_data(data, classname)
         csv_objects = []
         CSV.foreach(data, headers: true) do |row|
-            if data == './data/test_games.csv' || data == './data/games.csv'
-                csv_objects << Games.new(row)
-            elsif data == './data/teams.csv'
-                csv_objects << Teams.new(row)
-            elsif data == './data/test_game_teams.csv' || data == './data/game_teams.csv'
-                csv_objects << GameTeams.new(row)
-            end
+            csv_objects << classname.new(row)
         end
         csv_objects
     end
-    # def self.from_csv(data)
-    #     games = generate_csv_data(data[:games], Games)
-    #     teams = generate_csv_data(data[:teams], Teams)
-    #     game_teams = generate_csv_data(data[:game_teams], GameTeams)
-
-    #     StatTracker.new(teams, games, game_teams)
-    # end
-    
-    # def self.generate_csv_data(data, classname)
-    #     csv_objects = []
-    #     CSV.foreach(data, headers: true) do |row|
-    #         csv_objects << classname.new(row)
-    #     end
-    #     csv_objects
-    # end
 
     def highest_total_score
         @games.map do |game|
@@ -98,16 +77,9 @@ class StatTracker
         return 0 if tie_count == 0
         (tie_count.to_f / game_count).round(2)
     end
-    
-    # def count_of_games_by_season
-    #     hash = Hash.new(0)
-    #     @games.each do |game|
-    #         hash[game.season] += 1
-    #     end
-    #     hash
-    # end
 
-    def count_of_games_by_season #reformatting of how the above was written
+
+    def count_of_games_by_season 
         @games.each_with_object(Hash.new(0)) { |game, count| count[game.season] += 1 }
     end
 
@@ -129,7 +101,6 @@ class StatTracker
         end
 
         season_hash.each do |season, goals|
-            # season_hash[season] = (goals.to_f / @games.count.to_f).round(2)
             season_hash[season] = (goals.to_f / count_of_games_by_season[season]).round(2)
         end
         season_hash
@@ -139,7 +110,6 @@ class StatTracker
         @teams.count
     end
 
-    #Get average of all goals scored by team for all teams
     def best_offense
         team_avg_goals = calculate_team_averages
         best_team_id = team_avg_goals.max_by do |team_id, data|
@@ -192,10 +162,10 @@ class StatTracker
         find_team_name(worst_team_id[0])
     end
 
-    def calculate_team_averages(filter_condition = nil) # helper method to calculate team averages, can take in either home, away or nothing to apply to all games
+    def calculate_team_averages(filter_condition = nil) 
         team_avg_goals = Hash.new { |hash, key| hash[key] = { total_goals: 0, games: 0 } }
         @game_teams.each do |game_team|
-            next if filter_condition && game_team.hoa != filter_condition #  immediately communicates that the loop should skip iterations where the game_team doesn't meet the specified condition
+            next if filter_condition && game_team.hoa != filter_condition 
             team_avg_goals[game_team.team_id][:total_goals] += game_team.goals.to_i
             team_avg_goals[game_team.team_id][:games] += 1
         end
