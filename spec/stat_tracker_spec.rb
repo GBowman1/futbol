@@ -83,7 +83,7 @@ RSpec.describe StatTracker do
 
     describe 'Team count' do
         it 'can count the number of teams' do
-            expect(@stat_tracker.team_count).to eq(32)
+            expect(@stat_tracker.count_of_teams).to eq(32)
         end
     end
 
@@ -119,7 +119,49 @@ RSpec.describe StatTracker do
 
     describe 'Coach Stats' do
         it 'can find the winningest coaches' do
-            expect(@stat_tracker.winningest_coaches).to eq("Claude Julien")
+            expect(@stat_tracker.winningest_coach('20122013')).to eq("Claude Julien")
+        end
+    end
+
+    describe 'worst_coach' do
+        it "Name of the Coach with the worst win percentage for the season" do
+            expect(@stat_tracker.worst_coach("20122013")).to eq "Paul MacLean"
+        end
+    end
+
+    describe '#most_accurate_team' do
+        it "Name of the Team with the best ratio of shots to goals for the season" do
+            expect(@stat_tracker.most_accurate_team("20122013")).to eq "FC Dallas"
+        end
+    end
+
+    describe '#least_accurate_team' do
+        it "Name of the Team with the worst ratio of shots to goals for the season" do
+            expect(@stat_tracker.least_accurate_team("20122013")).to eq "Sporting Kansas City"
+        end
+    end
+
+    describe '#most_tackles' do
+        it "Name of the Team with the most tackles in the season" do
+            expect(@stat_tracker.most_tackles("20122013")).to eq "FC Dallas"
+        end
+    end
+
+    describe '#fewest_tackles' do
+        it "Name of the Team with the fewest tackles in the season" do
+            expect(@stat_tracker.fewest_tackles("20122013")).to eq "New York City FC"
+        end
+    end
+
+    describe '#calculate_team_tackles' do
+        it "calculates the number of tackles for a team" do
+            expect(@stat_tracker.calculate_team_tackles("20122013")).to eq ({"16"=>178, "17"=>219, "3"=>179, "5"=>150, "6"=>271, "8"=>61, "9"=>57})
+        end
+    end
+
+    describe '#calculate_team_accuracy' do
+        it "calculates the number of tackles for a team" do
+            expect(@stat_tracker.calculate_team_accuracy("20122013")).to eq ({"16"=>{:goals=>10, :shots=>58}, "17"=>{:goals=>13, :shots=>46}, "3"=>{:goals=>8, :shots=>38}, "5"=>{:goals=>2, :shots=>32}, "6"=>{:goals=>24, :shots=>76}, "8"=>{:goals=>5, :shots=>20}, "9"=>{:goals=>3, :shots=>14}})
         end
     end
 end

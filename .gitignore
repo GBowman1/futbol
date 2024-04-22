@@ -1,2 +1,4 @@
 coverage/
 echo coverage >> .gitignore
+
+.DS_Store
